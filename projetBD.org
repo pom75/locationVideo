@@ -1,0 +1,62 @@
+
+* Méthode de travail
+** Identifiants
+
+- login :: 52
+- mdp :: 4576
+
+** BD
+-Mysql video52: compte et nom base
+site PHP est hébergé par l'un des 2 membres du binôme
+
+
+** Site web
+
+Pour restreindre l'accès au site, tout en permettant à son binôme de mettre à jour le projet, l'étudiant 1234567 crée les répertoires nécessaires en leur affectant les droits suivants:
+- chmod o+x $HOME
+- chmod 711 $HOME/public_html
+- chmod 777 $HOME/public_html/videoN ainsi que pour tous les répertoires du site commun (sous-répertoires BD et GESTION), le nom videoN (nom d'utilisateur MySQL) n'étant connu a priori que du binôme et de l'enseignant.
+
+
+Le serveur web se trouve sur la machine poux.ufr-info-p6.jussieu.fr. Cette machine monte les comptes étudiants, il est donc inutile de vous connecter à poux pour éditer vos fichiers PHP. L'accès au serveur web de poux se fait depuis votre navigateur (firefox) avec l'url :
+
+http://poux.ufr-info-p6.jussieu.fr/2863379/video52
+
+connexion ssh pour accéder aux serveur, mysql
+
+* 1 Creation base de donnée
+
+| commande                        | description                                                  |
+|---------------------------------+--------------------------------------------------------------|
+| cd                              | répertoire de travail aller dans votre répertoire de travail |
+| tar xzvf CREATEBASE.tgz         | décompresser l'archive                                       |
+| ssh poux.ufr-info-p6.jussieu.fr | se connecter sur poux                                        |
+| cd répertoire de travail        | aller dans votre répertoire de travail                       |
+| cd CREATEBASE                   | aller dans le dossier contenant les scripts de création      |
+| mysql -u videoN -p              | se connecter au SGBD                                         |
+| Enter password:                 | saisir les 4 chiffres de votre mot de passe                  |
+| mysql> use videoN               | choisir sa base                                              |
+| mysql> source All.sql           | créer la base                                                |
+| mysql> describe FILMS ;         | affiche le schéma d'une relation                             |
+| mysql> select * from FILMS ;    | requête (attention, nom de table sensible à la casse)        |
+
+
+** Commandes MySQL élémentaires
+
+- use nom_de_base :: sélectionne la base nom_de_base (exemple: use video100)
+- show tables ; :: affiche la liste des tables de la base
+- describe nom de table ; :: (les noms de table et d'attributs sont case sensitive) 
+- source fichier ; :: execute les commandes SQL contenues dans le script fichier (extension .sql)
+- quit
+
+
+
+*** fonction mysql de date et heure
+| commande                               | signification                                                                                                                                                                                         |
+|                                        | <75>                                                                                                                                                                                                  |
+| NOW()                                  | Date et heure courante:                                                                                                                                                                               |
+| UNIX_TIMESTAMP(date)                   | Conversion d'une donnée de type datetime en Timestamp UNIX:                                                                                                                                           |
+| DATE_ADD/SUB(date, INTERVAL expr type) | Ajout ou soustraction d'une durée à une date (type date ou datetime):                                                                                                                                 |
+| EXTRACT(type FROM date)                | Extraction des composants d'une donnée de type datetime: , où expr est la durée et où type est l'unité dans laquelle cette dernière est exprimée (SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR, ....) |
+|                                        |                                                                                                                                                                                                       |
+les valeurs possibles du type étant identiques à celles des fonctions DATE_ADD et DATE_SUB.
